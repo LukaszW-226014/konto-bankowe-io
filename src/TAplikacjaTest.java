@@ -1,6 +1,4 @@
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
@@ -15,19 +13,34 @@ import static org.junit.Assert.*;
 public class TAplikacjaTest {
 
     @Parameter
-    public List<TKlient> listaKlient = new ArrayList<>();
+    public static List<TKlient> listaKlient = new ArrayList<>();
 
     @Parameter
-    private List<TPracownik> listaPracownik = new ArrayList<>();
+    private static List<TPracownik> listaPracownik = new ArrayList<>();
 
-    @Before
-    public void setUp(){
+    @BeforeClass
+    public static void setUpClass(){
+        System.out.println("Set up class");
         listaPracownik.add(new TPracownik(1, "Pawel", "Kowalski"));
         listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", 99500, "Szlaufy", "456-980-123", "APR123456"));
     }
 
+    @Before
+    public void setUp(){
+        System.out.println("start test");
+    }
+
+    @After
+    public void tearDown(){
+        System.out.println("end test");
+        System.out.flush();
+    }
+
     @Test
     public void przelejSrodki() throws Exception {
+        TAplikacja app = new TAplikacja();
+
+       // app.przelejSrodki();
     }
 
     @Test

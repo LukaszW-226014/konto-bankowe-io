@@ -6,7 +6,7 @@ public class TSystem {
 
 
 	public TSystem() {
-		TAplikacja app = new TAplikacja();
+		TAplikacja app = new TAplikacja(true);
 		czyLokatyZakonczone(app);
 	}
 
