@@ -52,6 +52,14 @@ public class TAplikacjaTest {
         System.out.flush();
     }
 
+
+    @Test
+    public void wyslijKomunikat() throws Exception {
+        TAplikacja app = new TAplikacja();
+        TAplikacja.Komunikaty komunikaty = null;
+        assertNull(komunikaty);
+    }
+
     @Test
     public void przelejSrodki() throws Exception {
         TAplikacja app = new TAplikacja();
