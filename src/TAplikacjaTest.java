@@ -2,8 +2,12 @@ import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -13,13 +17,25 @@ import static org.junit.Assert.*;
 public class TAplikacjaTest {
 
     @Parameter
-    public static List<TKlient> listaKlient = new ArrayList<>();
+    public List<TKlient> listaKlient = new ArrayList<>();
 
     @Parameter
-    private static List<TPracownik> listaPracownik = new ArrayList<>();
+    private List<TPracownik> listaPracownik = new ArrayList<>();
 
-    @BeforeClass
-    public static void setUpClass(){
+    @Parameter
+    private static int nrRachunku[] = {2312, 31232, 232131};
+
+    @Parameter
+    private static long kwota[] = {13212, 21312414, 12412441};
+
+    @Parameters
+    public static Collection<Object[]> data(){
+        Object[][] data1 = new Object[][]{{9990, 39404}, {374, 38239}, {132, 38811}};
+        return Arrays.asList(data1);
+    }
+
+    @Before
+    public void setUpClass(){
         System.out.println("Set up class");
         listaPracownik.add(new TPracownik(1, "Pawel", "Kowalski"));
         listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", 99500, "Szlaufy", "456-980-123", "APR123456"));
@@ -40,7 +56,11 @@ public class TAplikacjaTest {
     public void przelejSrodki() throws Exception {
         TAplikacja app = new TAplikacja();
 
-       // app.przelejSrodki();
+        for (int i = 0; i < nrRachunku.length; i++) {
+            for (int j = 0; j < kwota.length; j++) {
+                app.przelejSrodki(nrRachunku[i], kwota[j]);
+            }
+        }
     }
 
     @Test
@@ -49,10 +69,15 @@ public class TAplikacjaTest {
 
     @Test
     public void sprawdzSaldo() throws Exception {
+        TAplikacja app = new TAplikacja();
+        for (int i = 0; i < kwota.length; i++) {
+                Assert.assertNotNull(app.sprawdzSaldo(kwota[i]));
+        }
     }
 
     @Test
     public void zerwijLokate() throws Exception {
+
     }
 
     @Test

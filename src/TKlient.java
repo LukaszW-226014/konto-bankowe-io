@@ -154,7 +154,7 @@ public class TKlient {
 		setMiejscowosc(miejscowosc);
 		setTelefon(telefon);
 		setDowod(dowod);
-		listaKont.add(new TKonto(001, 2100));
+		listaKont.add(new TKonto(001, 200100));
 		listaLokat.add(new TLokata(0, new Date(2018, 4, 21), 1000, 3));
 	}
 

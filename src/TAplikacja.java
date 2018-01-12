@@ -300,7 +300,8 @@ public class TAplikacja {
 	}
 
 	public TAplikacja(){
-
+		listaPracownik.add(new TPracownik(1, "Pawel", "Kowalski"));
+		listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", 99500, "Szlaufy", "456-980-123", "APR123456"));
 	}
 
 	public TAplikacja(boolean start){
