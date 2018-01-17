@@ -129,174 +129,178 @@ public class TAplikacja {
 	 * @param kwota
 	 */
 	public void przelejSrodki(int nrRachunku, long kwota) {
-		if (sprawdzSaldo(kwota)){
-			listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() - kwota);
-			// TODO dodac dodawanie srodkow na zadany rachunek
-			Calendar calendar = Calendar.getInstance();
-			Date data = calendar.getTime();
-			listaKlient.get(0).listaKont.get(0).listaTransakcja.add(new TTransakcja(listaKlient.get(0).listaKont.get(0).listaTransakcja.size() + 1, data, "Przelew", new Date()));
-			wyslijKomunikat(Komunikaty._success);
-		}
-		else
-			wyslijKomunikat(Komunikaty._brakKasy);
+//		if (sprawdzSaldoWystarczajace(kwota)){
+//			listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() - kwota);
+//			// TODO dodac dodawanie srodkow na zadany rachunek
+//			Calendar calendar = Calendar.getInstance();
+//			Date data = calendar.getTime();
+//			listaKlient.get(0).listaKont.get(0).listaTransakcja.add(new TTransakcja(listaKlient.get(0).listaKont.get(0).listaTransakcja.size() + 1, data, "Przelew", new Date()));
+//			wyslijKomunikat(Komunikaty._success);
+//		}
+//		else
+//			wyslijKomunikat(Komunikaty._brakKasy);
 	}
 
 	public void zalozenieLokaty() {
-		TLokata lokata = new TLokata();
-		System.out.println("Podaj kwote: ");
-		Scanner odczytKwota = new Scanner(System.in);
-		long kwota = odczytKwota.nextLong();
-		if (sprawdzSaldo(kwota)){
-			lokata.setKwota(kwota);
-			System.out.println("Podaj okres: ");
-			Scanner odczytOkres = new Scanner(System.in);
-			int okres = odczytOkres.nextInt();
-
-			Calendar calendar = Calendar.getInstance();
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//		System.out.println(calendar.getTime());
-			Date dataZakonczenia = new Date();
-			dataZakonczenia = calendar.getTime();
-			dataZakonczenia.setMonth(dataZakonczenia.getMonth() + okres);
-//		System.out.println(dataZakonczenia);
-			lokata.setDataZakonczenia(dataZakonczenia);
-
-			int liczIdex = listaKlient.get(0).listaLokat.size();
-			listaKlient.get(0).listaLokat.add(new TLokata(liczIdex, dataZakonczenia, kwota, 3));
-			przelejSrodki(00000000, kwota);
-			wyslijKomunikat(Komunikaty._success);
-		}
-		else{
-			wyslijKomunikat(Komunikaty._error);
-		}
+//		TLokata lokata = new TLokata();
+//		System.out.println("Podaj kwote: ");
+//		Scanner odczytKwota = new Scanner(System.in);
+//		long kwota = odczytKwota.nextLong();
+//		if (sprawdzSaldoWystarczajace(kwota)){
+//			lokata.setKwota(kwota);
+//			System.out.println("Podaj okres: ");
+//			Scanner odczytOkres = new Scanner(System.in);
+//			int okres = odczytOkres.nextInt();
+//
+//			Calendar calendar = Calendar.getInstance();
+////		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+////		System.out.println(calendar.getTime());
+//			Date dataZakonczenia = new Date();
+//			dataZakonczenia = calendar.getTime();
+//			dataZakonczenia.setMonth(dataZakonczenia.getMonth() + okres);
+////		System.out.println(dataZakonczenia);
+//			lokata.setDataZakonczenia(dataZakonczenia);
+//
+//			int liczIdex = listaKlient.get(0).listaLokat.size();
+//			listaKlient.get(0).listaLokat.add(new TLokata(liczIdex, dataZakonczenia, kwota, 3));
+//			przelejSrodki(00000000, kwota);
+//			wyslijKomunikat(Komunikaty._success);
+//		}
+//		else{
+//			wyslijKomunikat(Komunikaty._error);
+//		}
 	}
 
-	public boolean sprawdzSaldo(long kwota) {
-		if (listaKlient.get(0).listaKont.get(0).getSaldo() > kwota){
+	public boolean sprawdzSaldo(long kwota, TKonto konto) {
+//		if (listaKlient.get(0).listaKont.get(0).getSaldo() > kwota){
+//			return true;
+//		}
+//		else
+//			return false;
+		if (konto.getSaldo() > kwota){
 			return true;
 		}
-		else
-			return false;
+		else return false;
 	}
 
 	public void zerwijLokate() {
-			if (listaKlient.get(0).listaLokat.size() < 1){
-				wyslijKomunikat(Komunikaty._brakLokat);
-			}
-			else {
-				System.out.println("Twoje lokaty: ");
-				for (TLokata lokata : listaKlient.get(0).listaLokat) {
-					System.out.println(lokata.toString());
-				}
-				System.out.println("Podaj index lokaty do usuniecia: ");
-				Scanner odczyt = new Scanner(System.in);
-				int id = odczyt.nextInt();
-				try {
-					listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() + listaKlient.get(0).listaLokat.get(id).getKwota());
-					listaKlient.get(0).listaLokat.remove(id);
-					wyslijKomunikat(Komunikaty._success);
-				} catch (IndexOutOfBoundsException e) {
-					wyslijKomunikat(Komunikaty._errorID);
-				}
-			}
+//			if (listaKlient.get(0).listaLokat.size() < 1){
+//				wyslijKomunikat(Komunikaty._brakLokat);
+//			}
+//			else {
+//				System.out.println("Twoje lokaty: ");
+//				for (TLokata lokata : listaKlient.get(0).listaLokat) {
+//					System.out.println(lokata.toString());
+//				}
+//				System.out.println("Podaj index lokaty do usuniecia: ");
+//				Scanner odczyt = new Scanner(System.in);
+//				int id = odczyt.nextInt();
+//				try {
+//					listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() + listaKlient.get(0).listaLokat.get(id).getKwota());
+//					listaKlient.get(0).listaLokat.remove(id);
+//					wyslijKomunikat(Komunikaty._success);
+//				} catch (IndexOutOfBoundsException e) {
+//					wyslijKomunikat(Komunikaty._errorID);
+//				}
+//			}
 	}
 
 	public void zalozKonto() {
-		try {
-			listaKlient.get(0).listaKont.add(new TKonto(listaKlient.get(0).listaKont.size() + 100, 0));
-			wyslijKomunikat(Komunikaty._success);
-		}catch (Exception e){
-			wyslijKomunikat(Komunikaty._error);
-		}
+//		try {
+//			listaKlient.get(0).listaKont.add(new TKonto(listaKlient.get(0).listaKont.size() + 100, 0));
+//			wyslijKomunikat(Komunikaty._success);
+//		}catch (Exception e){
+//			wyslijKomunikat(Komunikaty._error);
+//		}
 	}
 
 	public void zamknijKonto() {
-		System.out.println("Twoje konta: ");
-		for (TKonto konto : listaKlient.get(0).listaKont) {
-			System.out.println(konto.toString());
-		}
-		System.out.println("Podaj index konta do usuniecia: ");
-		Scanner odczyt = new Scanner(System.in);
-		int id = odczyt.nextInt();
-		try {
-			if (listaKlient.get(0).listaKont.get(id).getSaldo() < 1){
-				listaKlient.get(0).listaKont.remove(id);
-				wyslijKomunikat(Komunikaty._success);
-			}
-			else {
-				wyslijKomunikat(Komunikaty._niePuste);
-			}
-		} catch (IndexOutOfBoundsException e) {
-			wyslijKomunikat(Komunikaty._errorID);
-		}
+//		System.out.println("Twoje konta: ");
+//		for (TKonto konto : listaKlient.get(0).listaKont) {
+//			System.out.println(konto.toString());
+//		}
+//		System.out.println("Podaj index konta do usuniecia: ");
+//		Scanner odczyt = new Scanner(System.in);
+//		int id = odczyt.nextInt();
+//		try {
+//			if (listaKlient.get(0).listaKont.get(id).getSaldo() < 1){
+//				listaKlient.get(0).listaKont.remove(id);
+//				wyslijKomunikat(Komunikaty._success);
+//			}
+//			else {
+//				wyslijKomunikat(Komunikaty._niePuste);
+//			}
+//		} catch (IndexOutOfBoundsException e) {
+//			wyslijKomunikat(Komunikaty._errorID);
+//		}
 	}
 
 	public void zlozenieWnioskuKredytowego() {
-		Scanner odczyt = new Scanner(System.in);
-		TWniosek wniosek = new TWniosek();
-		wniosek.setIdWniosek(listaPracownik.get(0).listaWnioskow.size()+1);
-		System.out.println("Podaj cel: ");
-		wniosek.setCel(odczyt.next());
-		System.out.println("Podaj kwote: ");
-		wniosek.setKwota(odczyt.nextLong());
-		System.out.println("Podaj okres: ");
-		wniosek.setOkres(odczyt.nextInt());
-		System.out.println("Podaj ubezpieczenie: ");
-		wniosek.setUbezpieczenie(odczyt.next());
-		System.out.println("Podaj dochody");
-		wniosek.setDochod(odczyt.nextFloat());
-		wniosek.setZlozonoZasDoch(true);
-		System.out.println("Podaj liczbe czlonkow rodziny: ");
-		wniosek.setLiczbaCzlonkowRodziny(odczyt.nextInt());
-		Calendar calendar = Calendar.getInstance();
-		Date data = calendar.getTime();
-		wniosek.setDataRopatrzenia(data);
-		listaPracownik.get(0).listaWnioskow.add(wniosek);
-		wyslijKomunikat(Komunikaty._success);
+//		Scanner odczyt = new Scanner(System.in);
+//		TWniosek wniosek = new TWniosek();
+//		wniosek.setIdWniosek(listaPracownik.get(0).listaWnioskow.size()+1);
+//		System.out.println("Podaj cel: ");
+//		wniosek.setCel(odczyt.next());
+//		System.out.println("Podaj kwote: ");
+//		wniosek.setKwota(odczyt.nextLong());
+//		System.out.println("Podaj okres: ");
+//		wniosek.setOkres(odczyt.nextInt());
+//		System.out.println("Podaj ubezpieczenie: ");
+//		wniosek.setUbezpieczenie(odczyt.next());
+//		System.out.println("Podaj dochody");
+//		wniosek.setDochod(odczyt.nextFloat());
+//		wniosek.setZlozonoZasDoch(true);
+//		System.out.println("Podaj liczbe czlonkow rodziny: ");
+//		wniosek.setLiczbaCzlonkowRodziny(odczyt.nextInt());
+//		Calendar calendar = Calendar.getInstance();
+//		Date data = calendar.getTime();
+//		wniosek.setDataRopatrzenia(data);
+//		listaPracownik.get(0).listaWnioskow.add(wniosek);
+//		wyslijKomunikat(Komunikaty._success);
 	}
 
 	public void weryfikacjaWnioskuKredytowego() {
-		for (TWniosek wniosek:listaPracownik.get(0).listaWnioskow) {
-			System.out.println(wniosek.toString());
-		}
-		System.out.println("Podaj index wniosku: ");
-		Scanner odczyt = new Scanner(System.in);
-		int id = odczyt.nextInt();
-		try {
-			System.out.println("Czy wniosek poprawny?");
-			if (odczyt.next().equals("tak")){
-				listaPracownik.get(0).listaWnioskow.get(id).setCzyPoprawny(true);
-				System.out.println("Czy zdolnosc kredytowa?");
-				if (odczyt.next().equals("tak")){
-					listaPracownik.get(0).listaWnioskow.get(id).setCzyZdolnosc(true);
-					udzielKredytu(id);
-					wyslijKomunikat(Komunikaty._udzielonoKredytu);
-				}
-				else {
-					wyslijKomunikat(Komunikaty._brakZdolnosci);
-				}
-			}
-			else{
-				wyslijKomunikat(Komunikaty._niePoprawnyWniosek);
-			}
-		}catch (Exception e){
-			wyslijKomunikat(Komunikaty._error);
-		}
+//		for (TWniosek wniosek:listaPracownik.get(0).listaWnioskow) {
+//			System.out.println(wniosek.toString());
+//		}
+//		System.out.println("Podaj index wniosku: ");
+//		Scanner odczyt = new Scanner(System.in);
+//		int id = odczyt.nextInt();
+//		try {
+//			System.out.println("Czy wniosek poprawny?");
+//			if (odczyt.next().equals("tak")){
+//				listaPracownik.get(0).listaWnioskow.get(id).setCzyPoprawny(true);
+//				System.out.println("Czy zdolnosc kredytowa?");
+//				if (odczyt.next().equals("tak")){
+//					listaPracownik.get(0).listaWnioskow.get(id).setCzyZdolnosc(true);
+//					udzielKredytu(id);
+//					wyslijKomunikat(Komunikaty._udzielonoKredytu);
+//				}
+//				else {
+//					wyslijKomunikat(Komunikaty._brakZdolnosci);
+//				}
+//			}
+//			else{
+//				wyslijKomunikat(Komunikaty._niePoprawnyWniosek);
+//			}
+//		}catch (Exception e){
+//			wyslijKomunikat(Komunikaty._error);
+//		}
 	}
 
 	public void udzielKredytu(int id) {
-		listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() + listaPracownik.get(0).listaWnioskow.get(id).getKwota());
-		Calendar calendar = Calendar.getInstance();
-		Date data = calendar.getTime();
-		Date dataZakonczenia = data;
-		dataZakonczenia.setMonth(dataZakonczenia.getMonth() + listaPracownik.get(0).listaWnioskow.get(id).getOkres());
-		listaKlient.get(0).listaKredytow.add(new TKredyt(listaPracownik.get(0).listaWnioskow.get(id).getKwota(), listaPracownik.get(0).listaWnioskow.get(id).getCel(), listaPracownik.get(0).listaWnioskow.get(id).getOkres(), listaPracownik.get(0).listaWnioskow.get(id).getUbezpieczenie(), dataZakonczenia, data));
+//		listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() + listaPracownik.get(0).listaWnioskow.get(id).getKwota());
+//		Calendar calendar = Calendar.getInstance();
+//		Date data = calendar.getTime();
+//		Date dataZakonczenia = data;
+//		dataZakonczenia.setMonth(dataZakonczenia.getMonth() + listaPracownik.get(0).listaWnioskow.get(id).getOkres());
+//		listaKlient.get(0).listaKredytow.add(new TKredyt(listaPracownik.get(0).listaWnioskow.get(id).getKwota(), listaPracownik.get(0).listaWnioskow.get(id).getCel(), listaPracownik.get(0).listaWnioskow.get(id).getOkres(), listaPracownik.get(0).listaWnioskow.get(id).getUbezpieczenie(), dataZakonczenia, data));
 	}
 
 	public void pobierzWyciag() {
-		for (TTransakcja transakcja:listaKlient.get(0).listaKont.get(0).listaTransakcja) {
-			System.out.println(transakcja.toString());
-		}
+//		for (TTransakcja transakcja:listaKlient.get(0).listaKont.get(0).listaTransakcja) {
+//			System.out.println(transakcja.toString());
+//		}
 	}
 
 	public TAplikacja(){
@@ -310,5 +314,4 @@ public class TAplikacja {
 		listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", 99500, "Szlaufy", "456-980-123", "APR123456"));
 		operationMenu();
 	}
-
 }

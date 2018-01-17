@@ -6,6 +6,11 @@ public class TKonto {
 
 	private int nrRachunku;
 	private float saldo;
+
+	public TKonto(float saldo) {
+		this.saldo = saldo;
+	}
+
 	public List<TTransakcja> listaTransakcja = new ArrayList<>();
 
 	public TKonto(int nrRachunku, float saldo) {

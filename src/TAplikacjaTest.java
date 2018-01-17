@@ -12,55 +12,13 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
 public class TAplikacjaTest {
 
-    @Parameter
-    public List<TKlient> listaKlient = new ArrayList<>();
-
-    @Parameter
-    private List<TPracownik> listaPracownik = new ArrayList<>();
-
-    @Parameter
-    private static int nrRachunku[] = {2312, 31232, 232131};
-
-    @Parameter
-    private static long kwota[] = {13212, 21312414, 12412441};
-
-    @Parameters
-    public static Collection<Object[]> data(){
-        Object[][] data1 = new Object[][]{{9990, 39404}, {374, 38239}, {132, 38811}};
-        return Arrays.asList(data1);
-    }
-
-    @Before
-    public void setUpClass(){
-        System.out.println("Set up class");
-        listaPracownik.add(new TPracownik(1, "Pawel", "Kowalski"));
-        listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", 99500, "Szlaufy", "456-980-123", "APR123456"));
-    }
-
-    @Before
-    public void setUp(){
-        System.out.println("start test");
-    }
-
-    @After
-    public void tearDown(){
-        System.out.println("end test");
-        System.out.flush();
-    }
+    TAplikacja app = new TAplikacja();
 
     @Test
     public void przelejSrodki() throws Exception {
-        TAplikacja app = new TAplikacja();
-
-        for (int i = 0; i < nrRachunku.length; i++) {
-            for (int j = 0; j < kwota.length; j++) {
-                app.przelejSrodki(nrRachunku[i], kwota[j]);
-            }
-        }
     }
 
     @Test
@@ -68,11 +26,19 @@ public class TAplikacjaTest {
     }
 
     @Test
-    public void sprawdzSaldo() throws Exception {
-        TAplikacja app = new TAplikacja();
-        for (int i = 0; i < kwota.length; i++) {
-                Assert.assertNotNull(app.sprawdzSaldo(kwota[i]));
-        }
+    public void sprawdzSaldoWystarczajace() throws Exception {
+        System.out.println("sprawdz saldo wystarczajace");
+        TKonto konto = new TKonto(5000);
+
+        assertTrue(app.sprawdzSaldo(2000, konto));
+    }
+
+    @Test
+    public void sprawdzSaldoNiewystarczajace() throws Exception {
+        System.out.println("sprawdz saldo niewystarczajace");
+        TKonto konto = new TKonto(5000);
+
+        assertFalse(app.sprawdzSaldo(6000, konto));
     }
 
     @Test
@@ -104,5 +70,4 @@ public class TAplikacjaTest {
     @Test
     public void pobierzWyciag() throws Exception {
     }
-
 }
