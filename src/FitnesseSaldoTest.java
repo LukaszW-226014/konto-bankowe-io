@@ -1,4 +1,4 @@
-public class FitnesseTest {
+public class FitnesseSaldoTest {
     float kwota;
     float saldo;
     boolean result;
@@ -18,6 +18,6 @@ public class FitnesseTest {
     }
 
     public boolean result(){
-        return result;
+        return this.result;
     }
 }

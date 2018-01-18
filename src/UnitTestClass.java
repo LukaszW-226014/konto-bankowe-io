@@ -1,10 +1,5 @@
 import org.junit.*;
-import org.junit.runners.MethodSorters;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -61,13 +56,13 @@ public class UnitTestClass {
         String imie = "Mateusz";
         String nazwisko = "Dzbanek";
         long pesel = 49040501580L;
-        String adres = "Koszarowa 5";
-        int kodPocztowy = 55160;
+        String ulica = "Koszarowa 5";
+        String kodPocztowy = "55160";
         String miejscowosc = "Warszawa";
         String telefon = "561234123";
         String dowod = "AZF1234";
 
-        TKlient klient = new TKlient(id, imie, nazwisko, pesel, adres, kodPocztowy, miejscowosc, telefon, dowod);
+        TKlient klient = new TKlient(id, imie, nazwisko, pesel, ulica, kodPocztowy, miejscowosc, telefon, dowod);
 
         assertEquals(id, klient.getIdKlient());
 
@@ -77,7 +72,7 @@ public class UnitTestClass {
 
         assertEquals(pesel, klient.getPesel());
 
-        assertEquals(adres, klient.getAdres());
+        assertEquals(ulica, klient.getUlica());
 
         assertEquals(kodPocztowy, klient.getKodPocztowy());
 
@@ -213,8 +208,10 @@ public class UnitTestClass {
         System.out.println("test poprawnego numeru tel");
 
         TKlient klient = new TKlient();
-        klient.setTelefon("123456789");
+        String telefon = "123456789";
+        klient.setTelefon(telefon);
 
+        assertTrue(klient.sprawdzTelefon(telefon));
         assertEquals(9, klient.getTelefon().length());
     }
 

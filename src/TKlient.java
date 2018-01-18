@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TKlient {
@@ -8,8 +7,8 @@ public class TKlient {
 	private String imie;
 	private String nazwisko;
 	private long pesel;
-	private String adres;
-	private int kodPocztowy;
+	private String ulica;
+	private String kodPocztowy;
 	private String miejscowosc;
 	private String telefon;
 	private String dowod;
@@ -65,19 +64,19 @@ public class TKlient {
 		this.pesel = pesel;
 	}
 
-	public String getAdres() {
-		return this.adres;
+	public String getUlica() {
+		return this.ulica;
 	}
 
 	/**
 	 *
-	 * @param adres
+	 * @param ulica
 	 */
-	public void setAdres(String adres) {
-		this.adres = adres;
+	public void setUlica(String ulica) {
+		this.ulica = ulica;
 	}
 
-	public int getKodPocztowy() {
+	public String getKodPocztowy() {
 		return this.kodPocztowy;
 	}
 
@@ -85,7 +84,7 @@ public class TKlient {
 	 *
 	 * @param kodPocztowy
 	 */
-	public void setKodPocztowy(int kodPocztowy) {
+	public void setKodPocztowy(String kodPocztowy) {
 		this.kodPocztowy = kodPocztowy;
 	}
 
@@ -172,23 +171,61 @@ public class TKlient {
 		else {
 			return false;
 		}
+	}
 
+	public boolean sprawdzTelefon(String telefon){
+		if (telefon.length() == 9){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public boolean sprawdzKod(String kod){
+		char table[] = kod.toCharArray();
+		List<Character> kodTable = new ArrayList<>();
+		for (int i = 0; i < kod.length(); i++){
+			kodTable.add(i, table[i]);
+		}
+		if ((kodTable.get(2) == '-' && kodTable.size() == 6) || (!(kodTable.contains('-')) && kodTable.size() == 5)){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public TKlient(long pesel) {
 		this.pesel = pesel;
 	}
 
+	public TKlient(String kodPocztowy) {
+		this.kodPocztowy = kodPocztowy;
+	}
+
 	public TKlient() {
 
 	}
 
-	public TKlient(int id, String imie, String nazwisko, long pesel, String adres, int kodPocztowy, String miejscowosc, String telefon, String dowod) {
+	public TKlient(String imie, String nazwisko, long pesel, String ulica, String kodPocztowy, String miejscowosc, String telefon) {
+		setImie(imie);
+		setNazwisko(nazwisko);
+		setPesel(pesel);
+		setUlica(ulica);
+		setKodPocztowy(kodPocztowy);
+		setMiejscowosc(miejscowosc);
+		setTelefon(telefon);
+		//listaKont.add(new TKonto(001, 200100));
+		//listaLokat.add(new TLokata(0, new Date(2018, 4, 21), 1000, 3));
+	}
+
+	public TKlient(int id, String imie, String nazwisko, long pesel, String ulica, String kodPocztowy, String miejscowosc, String telefon, String dowod) {
 		setIdKlient(id);
 		setImie(imie);
 		setNazwisko(nazwisko);
 		setPesel(pesel);
-		setAdres(adres);
+		setUlica(ulica);
 		setKodPocztowy(kodPocztowy);
 		setMiejscowosc(miejscowosc);
 		setTelefon(telefon);
