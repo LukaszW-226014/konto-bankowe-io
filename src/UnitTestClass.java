@@ -10,7 +10,7 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 
-public class TestClass {
+public class UnitTestClass {
 
     TAplikacja app = new TAplikacja();
 
@@ -218,7 +218,6 @@ public class TestClass {
     public void sprawdzNiepoprawnoscNrTelefonu(){
         System.out.println("test niepoprawnego numeru tel");
 
-
         TKlient klient = new TKlient();
         klient.setTelefon("12345678");
 
@@ -226,36 +225,53 @@ public class TestClass {
     }
 
     @Test
-    public void zalozenieLokaty() throws Exception {
+    public void sprawdzPoprawneZalozenieLokaty() {
+        System.out.println("test prawidlowego zalozenia lokaty");
+
+        float kwota = 5000f;
+        float saldo = 10000f;
+        int okres = 13;
+        TKonto konto = new TKonto(saldo);
+
+        assertTrue(app.zalozenieLokaty(kwota, konto, okres));
     }
 
     @Test
-    public void zerwijLokate() throws Exception {
+    public void sprawdzNiepoprawneZalozenieLokaty(){
+        System.out.println("test niepoprawnego zalozenia lokaty");
 
+        float kwota = 15000f;
+        float saldo = 10000f;
+        int okres = 13;
+        TKonto konto = new TKonto(saldo);
+
+        assertFalse(app.zalozenieLokaty(kwota, konto, okres));
     }
 
     @Test
-    public void zalozKonto() throws Exception {
+    public void sprawdzPoprawneZalozenieKonta() {
+        System.out.println("test poprawnosci zalozenia konta");
 
+        TKlient klient = new TKlient();
+
+        app.zalozKonto(klient, new TKonto("PL83101010230000261395100000"));
+
+        assertNotNull(klient.listaKont);
     }
 
     @Test
-    public void zamknijKonto() throws Exception {
-    }
+    public void sprawdzPoprawneZamkniecieKonta() {
+        System.out.println("test poprawnosci zamkniecia konta");
 
-    @Test
-    public void zlozenieWnioskuKredytowego() throws Exception {
-    }
+        TKlient klient = new TKlient();
+        TKonto konto = new TKonto("PL83101010230000261395100000");
 
-    @Test
-    public void weryfikacjaWnioskuKredytowego() throws Exception {
-    }
+        app.zalozKonto(klient, konto);
 
-    @Test
-    public void udzielKredytu() throws Exception {
-    }
+        assertNotNull(klient.listaKont);
 
-    @Test
-    public void pobierzWyciag() throws Exception {
+        app.zamknijKonto(klient, konto);
+
+        assertFalse(klient.listaKont.contains(konto));
     }
 }

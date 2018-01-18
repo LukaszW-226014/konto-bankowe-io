@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -44,7 +45,8 @@ public class TAplikacja {
 					int paramK = 0;
 					do {
 						switch (paramK = choice.nextInt()){
-							case 1: zalozenieLokaty();
+							case 1:
+								//zalozenieLokaty();
 								break;
 							case 2: zerwijLokate();
 								break;
@@ -61,7 +63,8 @@ public class TAplikacja {
 							case 5:
 								//pobierzWyciag();
 								break;
-							case 6: zamknijKonto();
+							case 6:
+								//zamknijKonto();
 								break;
 							default:
 								break;
@@ -74,7 +77,8 @@ public class TAplikacja {
 					int paramP = 0;
 					do {
 						switch (paramP = choice.nextInt()){
-							case 1: zalozKonto();
+							case 1:
+								//zalozKonto();
 								break;
 							case 2: weryfikacjaWnioskuKredytowego();
 								break;
@@ -150,7 +154,7 @@ public class TAplikacja {
 
 	}
 
-	public void zalozenieLokaty() {
+	public boolean zalozenieLokaty(float kwota, TKonto konto, int okres) {
 //		TLokata lokata = new TLokata();
 //		System.out.println("Podaj kwote: ");
 //		Scanner odczytKwota = new Scanner(System.in);
@@ -178,6 +182,23 @@ public class TAplikacja {
 //		else{
 //			wyslijKomunikat(Komunikaty._error);
 //		}
+		TLokata lokata = new TLokata();
+		if (sprawdzSaldo(kwota, konto)){
+			lokata.setKwota(kwota);
+			Calendar calendar = Calendar.getInstance();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+			//System.out.println(calendar.getTime());
+			Date dataZakonczenia = new Date();
+			dataZakonczenia = calendar.getTime();
+			dataZakonczenia.setMonth(dataZakonczenia.getMonth() + okres);
+			//System.out.println(dataZakonczenia);
+			lokata.setDataZakonczenia(dataZakonczenia);
+			przelejSrodki(kwota, konto, new TKonto(1000000));
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public boolean sprawdzSaldo(float kwota, TKonto konto) {
@@ -223,16 +244,17 @@ public class TAplikacja {
 		}
 	}
 
-	public void zalozKonto() {
+	public void zalozKonto(TKlient klient, TKonto konto) {
 //		try {
 //			listaKlient.get(0).listaKont.add(new TKonto(listaKlient.get(0).listaKont.size() + 100, 0));
 //			wyslijKomunikat(Komunikaty._success);
 //		}catch (Exception e){
 //			wyslijKomunikat(Komunikaty._error);
 //		}
+		klient.listaKont.add(konto);
 	}
 
-	public void zamknijKonto() {
+	public void zamknijKonto(TKlient klient, TKonto konto) {
 //		System.out.println("Twoje konta: ");
 //		for (TKonto konto : listaKlient.get(0).listaKont) {
 //			System.out.println(konto.toString());
@@ -251,6 +273,8 @@ public class TAplikacja {
 //		} catch (IndexOutOfBoundsException e) {
 //			wyslijKomunikat(Komunikaty._errorID);
 //		}
+		klient.listaKont.remove(konto);
+		klient.listaKont.clear();
 	}
 
 	public void zlozenieWnioskuKredytowego() {

@@ -34,7 +34,7 @@ public class TLokata {
 	 *
 	 * @param kwota
 	 */
-	public void setKwota(long kwota) {
+	public void setKwota(float kwota) {
 		this.kwota = kwota;
 	}
 
