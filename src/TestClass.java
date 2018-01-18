@@ -205,6 +205,27 @@ public class TestClass {
     }
 
     @Test
+    public void sprawdzPoprawnoscNrTelefonu(){
+        System.out.println("test poprawnego numeru tel");
+
+        TKlient klient = new TKlient();
+        klient.setTelefon("123456789");
+
+        assertEquals(9, klient.getTelefon().length());
+    }
+
+    @Test
+    public void sprawdzNiepoprawnoscNrTelefonu(){
+        System.out.println("test niepoprawnego numeru tel");
+
+
+        TKlient klient = new TKlient();
+        klient.setTelefon("12345678");
+
+        assertNotEquals(9, klient.getTelefon().length());
+    }
+
+    @Test
     public void zalozenieLokaty() throws Exception {
     }
 
