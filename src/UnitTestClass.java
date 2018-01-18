@@ -12,8 +12,12 @@ import static org.junit.Assert.*;
 
 public class UnitTestClass {
 
-    TAplikacja app = new TAplikacja();
+    TAplikacja app;
 
+    @Before
+    public void setUp(){
+        app = new TAplikacja();
+    }
 
     @Test
     public void przelewUdany() throws Exception {
