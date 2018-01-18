@@ -4,10 +4,10 @@ public class TLokata {
 
 	private int idLokata;
 	private Date dataZakonczenia;
-	private long kwota;
+	private float kwota;
 	private float oprocentowanie;
 
-	public TLokata(int idLokata, Date dataZakonczenia, long kwota, float oprocentowanie) {
+	public TLokata(int idLokata, Date dataZakonczenia, float kwota, float oprocentowanie) {
 		this.idLokata = idLokata;
 		this.dataZakonczenia = dataZakonczenia;
 		this.kwota = kwota;
@@ -26,7 +26,7 @@ public class TLokata {
 		this.dataZakonczenia = dataZakonczenia;
 	}
 
-	public long getKwota() {
+	public float getKwota() {
 		return this.kwota;
 	}
 

@@ -103,10 +103,7 @@ public class TKredyt {
 		this.dataRozpoczecia = dataRozpoczecia;
 	}
 
-	public boolean czyZalega() {
-		// TODO - implement TKredyt.czyZalega
-		throw new UnsupportedOperationException();
-	}
+
 
 	public TKredyt() {
 	}

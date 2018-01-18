@@ -65,10 +65,10 @@ public class TTransakcja {
 	@Override
 	public String toString() {
 		return "TTransakcja{" +
-				"idTransakcja=" + idTransakcja +
-				", dataZlecenia=" + dataZlecenia +
-				", typ='" + typ + '\'' +
-				", dataZaksiegowania=" + dataZaksiegowania +
+				"idTransakcja: " + idTransakcja +
+				", dataZlecenia: " + dataZlecenia +
+				", typ: '" + typ + '\'' +
+				", dataZaksiegowania: " + dataZaksiegowania +
 				'}';
 	}
 }

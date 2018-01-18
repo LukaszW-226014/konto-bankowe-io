@@ -4,16 +4,28 @@ import java.util.List;
 
 public class TKonto {
 
-	private int nrRachunku;
+	public String getNrRachunku() {
+		return nrRachunku;
+	}
+
+	public void setNrRachunku(String nrRachunku) {
+		this.nrRachunku = nrRachunku;
+	}
+
+	private String nrRachunku;
 	private float saldo;
 
 	public TKonto(float saldo) {
 		this.saldo = saldo;
 	}
 
+	public TKonto(String nrRachunku) {
+		this.nrRachunku = nrRachunku;
+	}
+
 	public List<TTransakcja> listaTransakcja = new ArrayList<>();
 
-	public TKonto(int nrRachunku, float saldo) {
+	public TKonto(String nrRachunku, float saldo) {
 		this.nrRachunku = nrRachunku;
 		this.saldo = saldo;
 		listaTransakcja.add(new TTransakcja(1, new Date(2017,11,29), "Przelew", new Date(2017,12,2)));
@@ -22,17 +34,7 @@ public class TKonto {
 	public TKonto() {
 	}
 
-	public int getNrRachunku() {
-		return this.nrRachunku;
-	}
 
-	/**
-	 *
-	 * @param nrRachunku
-	 */
-	public void setNrRachunku(int nrRachunku) {
-		this.nrRachunku = nrRachunku;
-	}
 
 	public float getSaldo() {
 		return this.saldo;

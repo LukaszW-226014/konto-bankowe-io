@@ -139,9 +139,48 @@ public class TKlient {
 		throw new UnsupportedOperationException();
 	}
 
+	public boolean checkPesel(long pesel){
+		long l1 = pesel/10000000000L % 10;
+		long l2 = pesel/1000000000 % 10;
+		long l3 = pesel/100000000 % 10;
+		long l4 = pesel/10000000 % 10;
+		long l5 = pesel/1000000 % 10;
+		long l6 = pesel/100000 % 10;
+		long l7 = pesel/10000 % 10;
+		long l8 = pesel/1000 % 10;
+		long l9 = pesel/100 % 10;
+		long l10 = pesel/10 % 10;
+		long l11 = pesel % 10;
+
+//		System.out.print(l1 + " ");
+//		System.out.print(l2 + " ");
+//		System.out.print(l3 + " ");
+//		System.out.print(l4 + " ");
+//		System.out.print(l5 + " ");
+//		System.out.print(l6 + " ");
+//		System.out.print(l7 + " ");
+//		System.out.print(l8 + " ");
+//		System.out.print(l9 + " ");
+//		System.out.print(l10 + " ");
+//		System.out.print(l11 + " ");
+
+		int suma = (int) (l1 + l2*3 + l3*7 + l4*9 + l5 + l6*3 + l7*7 + l8*9 + l9 + l10*3);
+
+		if ((10 - suma % 10)%10 == l11){
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	public TKlient(long pesel) {
+		this.pesel = pesel;
+	}
+
 	public TKlient() {
-		// TODO - implement TKlient.TKlient
-		throw new UnsupportedOperationException();
+
 	}
 
 	public TKlient(int id, String imie, String nazwisko, long pesel, String adres, int kodPocztowy, String miejscowosc, String telefon, String dowod) {
@@ -154,8 +193,8 @@ public class TKlient {
 		setMiejscowosc(miejscowosc);
 		setTelefon(telefon);
 		setDowod(dowod);
-		listaKont.add(new TKonto(001, 200100));
-		listaLokat.add(new TLokata(0, new Date(2018, 4, 21), 1000, 3));
+		//listaKont.add(new TKonto(001, 200100));
+		//listaLokat.add(new TLokata(0, new Date(2018, 4, 21), 1000, 3));
 	}
 
 }

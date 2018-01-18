@@ -54,11 +54,12 @@ public class TAplikacja {
 								int nr = odczyt.nextInt();
 								System.out.println("Wprowadz kwote: ");
 								long kwota = odczyt.nextLong();
-								przelejSrodki(nr, kwota);
+								//przelejSrodki(nr, kwota);
 								break;
 							case 4: zlozenieWnioskuKredytowego();
 								break;
-							case 5: pobierzWyciag();
+							case 5:
+								//pobierzWyciag();
 								break;
 							case 6: zamknijKonto();
 								break;
@@ -125,10 +126,9 @@ public class TAplikacja {
 
 	/**
 	 *
-	 * @param nrRachunku
 	 * @param kwota
 	 */
-	public void przelejSrodki(int nrRachunku, long kwota) {
+	public boolean przelejSrodki(float kwota, TKonto konto1, TKonto konto2) {
 //		if (sprawdzSaldoWystarczajace(kwota)){
 //			listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() - kwota);
 //			// TODO dodac dodawanie srodkow na zadany rachunek
@@ -139,6 +139,15 @@ public class TAplikacja {
 //		}
 //		else
 //			wyslijKomunikat(Komunikaty._brakKasy);
+		if (sprawdzSaldo(kwota, konto1)){
+			konto1.setSaldo(konto1.getSaldo() - kwota);
+			konto2.setSaldo(konto2.getSaldo() + kwota);
+			return true;
+		}
+		else {
+			return false;
+		}
+
 	}
 
 	public void zalozenieLokaty() {
@@ -171,7 +180,7 @@ public class TAplikacja {
 //		}
 	}
 
-	public boolean sprawdzSaldo(long kwota, TKonto konto) {
+	public boolean sprawdzSaldo(float kwota, TKonto konto) {
 //		if (listaKlient.get(0).listaKont.get(0).getSaldo() > kwota){
 //			return true;
 //		}
@@ -203,6 +212,15 @@ public class TAplikacja {
 //					wyslijKomunikat(Komunikaty._errorID);
 //				}
 //			}
+	}
+
+	public boolean czyLokatyZakonczone(TLokata lokata, 	Date time) {
+		if (time.after(lokata.getDataZakonczenia())){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public void zalozKonto() {
@@ -288,19 +306,31 @@ public class TAplikacja {
 //		}
 	}
 
-	public void udzielKredytu(int id) {
+	public boolean czyZalega(float saldo) {
+		if (saldo < 0){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public void udzielKredytu(int id, float kwota, TKonto konto) {
 //		listaKlient.get(0).listaKont.get(0).setSaldo(listaKlient.get(0).listaKont.get(0).getSaldo() + listaPracownik.get(0).listaWnioskow.get(id).getKwota());
 //		Calendar calendar = Calendar.getInstance();
 //		Date data = calendar.getTime();
 //		Date dataZakonczenia = data;
 //		dataZakonczenia.setMonth(dataZakonczenia.getMonth() + listaPracownik.get(0).listaWnioskow.get(id).getOkres());
 //		listaKlient.get(0).listaKredytow.add(new TKredyt(listaPracownik.get(0).listaWnioskow.get(id).getKwota(), listaPracownik.get(0).listaWnioskow.get(id).getCel(), listaPracownik.get(0).listaWnioskow.get(id).getOkres(), listaPracownik.get(0).listaWnioskow.get(id).getUbezpieczenie(), dataZakonczenia, data));
+		przelejSrodki(kwota, new TKonto(10000000), konto);
 	}
 
-	public void pobierzWyciag() {
-//		for (TTransakcja transakcja:listaKlient.get(0).listaKont.get(0).listaTransakcja) {
-//			System.out.println(transakcja.toString());
-//		}
+	public List<TTransakcja> pobierzWyciag(List<TTransakcja> listaTransakcji) {
+		List<TTransakcja> wyciag = new ArrayList<>();
+		for (TTransakcja transakcja : listaTransakcji) {
+			wyciag.add(transakcja);
+		}
+		return wyciag;
 	}
 
 	public TAplikacja(){
