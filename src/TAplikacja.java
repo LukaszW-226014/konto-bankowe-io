@@ -1,54 +1,58 @@
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 public class TAplikacja {
 
 	public List<TKlient> listaKlient = new ArrayList<>();
 	private List<TPracownik> listaPracownik = new ArrayList<>();
 
-	enum Komunikaty { _error, _success, _brakLokat, _errorID, _brakKasy, _niePuste, _niePoprawnyWniosek, _brakZdolnosci, _udzielonoKredytu}
+	enum Komunikaty {_error, _success, _brakLokat, _errorID, _brakKasy, _niePuste, _niePoprawnyWniosek, _brakZdolnosci, _udzielonoKredytu}
 
-	enum MenuContent { _entryMenu, _klientMenu, _pracownikMenu}
+	enum MenuContent {_entryMenu, _klientMenu, _pracownikMenu}
+
 	MenuContent currentContent = MenuContent._entryMenu;
 
 	public void displayMenu() {
 
-		switch (currentContent){
-			case _entryMenu: System.out.println("***********************************************************************\n"
-					+ "Wybierz funkcjonalnosci: \n" + "1. Klient\n" + "2. Pracownik\n" + "0. Wyjdz\n");
+		switch (currentContent) {
+			case _entryMenu:
+				System.out.println("***********************************************************************\n"
+						+ "Wybierz funkcjonalnosci: \n" + "1. Klient\n" + "2. Pracownik\n" + "0. Wyjdz\n");
 				break;
-			case _klientMenu: System.out.println("***********************************************************************\n"
-					+ "Klient: " + listaKlient.get(0).getImie() + " " + listaKlient.get(0).getNazwisko() + "\n"
-					+ "Twoje saldo = " + listaKlient.get(0).listaKont.get(0).getSaldo() +"\n" + "1. Zaloz lokate\n" + "2. Zerwij lokate\n"
-					+ "3. Przelej srodki\n" + "4. Zloz wniosek kredytowy\n" + "5. Pobierz Wyciag\n" + "6. Zamknij konto\n" + "0. Wyjdz\n");
+			case _klientMenu:
+				System.out.println("***********************************************************************\n"
+						+ "Klient: " + listaKlient.get(0).getImie() + " " + listaKlient.get(0).getNazwisko() + "\n"
+						+ "Twoje saldo = " + listaKlient.get(0).listaKont.get(0).getSaldo() + "\n" + "1. Zaloz lokate\n" + "2. Zerwij lokate\n"
+						+ "3. Przelej srodki\n" + "4. Zloz wniosek kredytowy\n" + "5. Pobierz Wyciag\n" + "6. Zamknij konto\n" + "0. Wyjdz\n");
 				break;
-			case _pracownikMenu: System.out.println("***********************************************************************\n"
-					+ "Pracownik: " + listaPracownik.get(0).getImie() + " " + listaPracownik.get(0).getNazwisko() + "\n"
-					+ "Oczekujace wnioski = " + listaPracownik.get(0).listaWnioskow.size() + "\n" + "1. Zaloz Konto\n" + "2. Weryfikacja Wniosku Kredytowego\n" + "0. Wyjdz\n");
+			case _pracownikMenu:
+				System.out.println("***********************************************************************\n"
+						+ "Pracownik: " + listaPracownik.get(0).getImie() + " " + listaPracownik.get(0).getNazwisko() + "\n"
+						+ "Oczekujace wnioski = " + listaPracownik.get(0).listaWnioskow.size() + "\n" + "1. Zaloz Konto\n" + "2. Weryfikacja Wniosku Kredytowego\n" + "0. Wyjdz\n");
 				break;
 			default:
 				break;
 		}
 	}
 
-	public void operationMenu(){
+	public void operationMenu() {
 		int param = 0;
 		do {
 			currentContent = MenuContent._entryMenu;
 			displayMenu();
 			Scanner choice = new Scanner(System.in);
-			switch (param = choice.nextInt()){
+			switch (param = choice.nextInt()) {
 				case 1:
 					currentContent = MenuContent._klientMenu;
 					displayMenu();
 					int paramK = 0;
 					do {
-						switch (paramK = choice.nextInt()){
+						switch (paramK = choice.nextInt()) {
 							case 1:
 								//zalozenieLokaty();
 								break;
-							case 2: zerwijLokate();
+							case 2:
+								zerwijLokate();
 								break;
 							case 3:
 								System.out.println("Podaj nr rachunku: ");
@@ -58,7 +62,8 @@ public class TAplikacja {
 								long kwota = odczyt.nextLong();
 								//przelejSrodki(nr, kwota);
 								break;
-							case 4: zlozenieWnioskuKredytowego();
+							case 4:
+								zlozenieWnioskuKredytowego();
 								break;
 							case 5:
 								//pobierzWyciag();
@@ -69,36 +74,36 @@ public class TAplikacja {
 							default:
 								break;
 						}
-					}while (paramK != 0);
+					} while (paramK != 0);
 					break;
 				case 2:
 					currentContent = MenuContent._pracownikMenu;
 					displayMenu();
 					int paramP = 0;
 					do {
-						switch (paramP = choice.nextInt()){
+						switch (paramP = choice.nextInt()) {
 							case 1:
 								//zalozKonto();
 								break;
-							case 2: weryfikacjaWnioskuKredytowego();
+							case 2:
+								weryfikacjaWnioskuKredytowego();
 								break;
 							default:
 								break;
 						}
-					}while (paramP !=0);
+					} while (paramP != 0);
 					break;
 				default:
 					break;
 			}
-		}while (param != 0);
+		} while (param != 0);
 	}
 
 	/**
-	 *
 	 * @param k
 	 */
 	public void wyslijKomunikat(Komunikaty k) {
-		switch (k){
+		switch (k) {
 			case _error:
 				System.out.println("Error\n");
 				break;
@@ -129,7 +134,6 @@ public class TAplikacja {
 	}
 
 	/**
-	 *
 	 * @param kwota
 	 */
 	public boolean przelejSrodki(float kwota, TKonto konto1, TKonto konto2) {
@@ -143,12 +147,11 @@ public class TAplikacja {
 //		}
 //		else
 //			wyslijKomunikat(Komunikaty._brakKasy);
-		if (sprawdzSaldo(kwota, konto1)){
+		if (sprawdzSaldo(kwota, konto1)) {
 			konto1.setSaldo(konto1.getSaldo() - kwota);
 			konto2.setSaldo(konto2.getSaldo() + kwota);
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 
@@ -183,7 +186,7 @@ public class TAplikacja {
 //			wyslijKomunikat(Komunikaty._error);
 //		}
 		TLokata lokata = new TLokata();
-		if (sprawdzSaldo(kwota, konto)){
+		if (sprawdzSaldo(kwota, konto)) {
 			lokata.setKwota(kwota);
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -195,8 +198,7 @@ public class TAplikacja {
 			lokata.setDataZakonczenia(dataZakonczenia);
 			przelejSrodki(kwota, konto, new TKonto(1000000));
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -207,10 +209,9 @@ public class TAplikacja {
 //		}
 //		else
 //			return false;
-		if (konto.getSaldo() >= kwota && kwota >= 0){
+		if (konto.getSaldo() >= kwota && kwota >= 0) {
 			return true;
-		}
-		else return false;
+		} else return false;
 	}
 
 	public void zerwijLokate() {
@@ -235,11 +236,10 @@ public class TAplikacja {
 //			}
 	}
 
-	public boolean czyLokatyZakonczone(TLokata lokata, 	Date time) {
-		if (time.after(lokata.getDataZakonczenia())){
+	public boolean czyLokatyZakonczone(TLokata lokata, Date time) {
+		if (time.after(lokata.getDataZakonczenia())) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -331,10 +331,9 @@ public class TAplikacja {
 	}
 
 	public boolean czyZalega(float saldo) {
-		if (saldo < 0){
+		if (saldo < 0) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -357,12 +356,12 @@ public class TAplikacja {
 		return wyciag;
 	}
 
-	public TAplikacja(){
+	public TAplikacja() {
 		listaPracownik.add(new TPracownik(1, "Pawel", "Kowalski"));
 		listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", "99500", "Szlaufy", "456-980-123", "APR123456"));
 	}
 
-	public TAplikacja(boolean start){
+	public TAplikacja(boolean start) {
 		// Dodanie na sztywno 1 pracownika ze wzgledu na brak bazy danych na tym etapie
 		listaPracownik.add(new TPracownik(1, "Pawel", "Kowalski"));
 		listaKlient.add(new TKlient(1, "Jan", "Klocek", 981108023, "ul. Kobry 11", "99500", "Szlaufy", "456-980-123", "APR123456"));
