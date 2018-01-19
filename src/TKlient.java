@@ -15,6 +15,15 @@ public class TKlient {
 	public List<TLokata> listaLokat = new ArrayList<>();
 	public List<TKredyt> listaKredytow = new ArrayList<>();
 	public List<TKonto> listaKont = new ArrayList<>();
+	public TKonto konto;
+
+	public TKonto getKonto() {
+		return konto;
+	}
+
+	public void setKonto(TKonto konto) {
+		this.konto = konto;
+	}
 
 	public int getIdKlient() {
 		return this.idKlient;
@@ -182,6 +191,7 @@ public class TKlient {
 		}
 	}
 
+
 	public boolean sprawdzKod(String kod){
 		char table[] = kod.toCharArray();
 		List<Character> kodTable = new ArrayList<>();
@@ -206,6 +216,10 @@ public class TKlient {
 
 	public TKlient() {
 
+	}
+
+	public TKlient(int idKlient) {
+		this.idKlient = idKlient;
 	}
 
 	public TKlient(String imie, String nazwisko, long pesel, String ulica, String kodPocztowy, String miejscowosc, String telefon) {

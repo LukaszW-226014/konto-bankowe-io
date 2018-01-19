@@ -1,3 +1,7 @@
+import mockit.Expectations;
+import mockit.FullVerifications;
+import mockit.Injectable;
+import mockit.Mocked;
 import org.junit.*;
 
 import java.util.*;
@@ -8,6 +12,12 @@ import static org.junit.Assert.*;
 public class UnitTestClass {
 
     TAplikacja app;
+
+    @Mocked
+    TKlient anyKlient;
+
+    @Injectable
+    TKonto anyKonto;
 
     @Before
     public void setUp(){
@@ -275,4 +285,40 @@ public class UnitTestClass {
 
         assertFalse(klient.listaKont.contains(konto));
     }
+
+//    @Test
+//    public void anyPeselCheck(){
+//        long pesel = 49040501580L;
+//        new Expectations(){{
+//           anyKlient.checkPesel(pesel); result = true;
+//        }};
+//
+//        anyKlient.setPesel(pesel);
+//
+//        assertSame(pesel, anyKlient.getPesel());
+//    }
+////
+//    @Test
+//    public void sprawdzNumerRachunku(){
+//        System.out.println("Test dostepu do numeru rachunku");
+//
+//        TKlient klient = new TKlient(1);
+//        klient.setKonto(anyKonto);
+//
+//        assertEquals(anyKonto, klient.getKonto());
+//
+//        new Expectations(){
+//            {
+//                anyKonto.getNrRachunku();   result = "PL83101010230000261395100000";
+//            }
+//        };
+//
+//        //assertEquals("PL83101010230000261395100000", klient.getNrRachunku());
+//
+//        new FullVerifications(){
+//            {
+//                anyKonto.getNrRachunku(); times = 1;
+//            }
+//        };
+//    }
 }
